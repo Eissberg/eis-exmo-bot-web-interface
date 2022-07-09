@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,400;8..144,600;8..144,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="#">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.js"></script>
+    <script type ="text/javascript" src ="js/rsiS.js"></script>
+    <script type ="text/javascript" src ="js/pairS.js"></script>
+    <script type ="text/javascript" src ="js/apiS.js"></script>
+    <title>Selling_v_0_5</title>
+</head>
+<body>
+    <!-- <script src="js/bower_components/crypto-js/crypto-js.js"></script> -->
+    <header class="header">
+        <div class="container d-flex justify-content-center align-items-center">
+            <a href="#" class="logo">
+                <img src="img/CRlogo.svg" alt="logo">
+            </a>
+            <h1 class="title">eisBot для Exmo</h1> 
+            <p class="versus">v.0.5</p>
+            <nav class="info-header-nav">
+                <a data-modal-help href="#">Допомога</a>
+                <a data-modal-aboutUs href="#">Про проект</a>
+            </nav>
+        </div>
+        <!-- /.container -->
+    </header>
+    <!-- /.header -->
+    <main class="main">
+        <section class="inner align-items-center">
+            <div class="grid-container d-grid">
+                <div class="grid_control_ballance d-grid grid-container-row">
+                    
+                    <div class="grid_control_buttons">
+                        <div class="inner_header d-flex justify-content-center">
+                            <h2>Керування алгоритмами</h2>
+                        </div>
+                        <!-- /.inner_header -->
+                        <div class="inner_container">
+                            <p id="control_buttons">
+                                <div class="d-grid grid-buttons align-items-center" >
+                                    <p> <a data-modal-help-one href="#">Базовий аналіз</a> </p>
+                                    <buton id="BtnStart1" class="btn btn-default">Старт</buton>
+                                    <buton id="BtnStop1" class="btn btn-default">Стоп</buton>
+                                    <div id="label1" class="label"></div>
+                                </div> 
+                                <div class="d-grid grid-buttons align-items-center" >
+                                    <p> <a data-modal-help-two href="#">RSI-14 аналіз</a> </p>
+                                    <buton id="BtnStart2" class="btn btn-default">Старт</buton>
+                                    <buton id="BtnStop2" class="btn btn-default">Стоп</buton>
+                                    <div id="label2" class="label"></div>
+                                </div> 
+                                <div class="d-grid grid-buttons align-items-center" >
+                                    <p> <a data-modal-help-three href="#">Тест алгоритм</a> </p>
+                                    <buton id="BtnStart3" class="btn btn-default">Старт</buton>
+                                    <buton id="BtnStop3" class="btn btn-default">Стоп</buton>
+                                    <div id="label3" class="label"></div>
+                                </div> 
+                            </p>
+                        </div>
+                        <!-- /.inner_container -->
+                    </div>
+                    <!-- /.grid_control_buttons -->
+
+                    <div class="grid_ballance">
+                        <div class="inner_header d-flex justify-content-center">
+                            <h2>Баланс / Аналіз </h2>
+                        </div>
+                        <!-- /.inner_header -->
+                        <div class="inner_container">
+                            <p id="balance">
+                                <div class="balance-header d-grid grid-balance align-items-center text-align-center font-weigth-bold" >
+                                    <p id="balance_crMain"><strong></strong></p>
+                                    <p id="balance_crSub"><strong></strong></p>
+                                </div> 
+                                <div class="d-grid grid-balance align-items-center text-align-center" >
+                                    <p id="balance_Main"></p>
+                                    <p id="balance_Sub"></p>
+                                </div>
+                            </p>
+                            <p id="difference">
+                                <div class="difference-header d-grid grid-difference align-items-center text-align-center" >
+                                    <p><strong></strong></p>
+                                    <p><strong>тип</strong></p>
+                                    <p><strong>курс</strong></p>
+                                    <p><strong>BTC</strong></p>
+                                    <p><strong>USD</strong></p>
+                                </div> 
+                                <div class="d-grid grid-difference align-items-center text-align-center" >
+                                    <p class="font-weigth-bold">Остання операція</p>
+                                    <p id="last_operation_type"></p>
+                                    <p id="last_operation_rate"></p>
+                                    <p id="last_operation_balanceMain"></p>
+                                    <p id="last_operation_balanceSub"></p>
+                                </div> 
+                                <div class="d-grid grid-difference align-items-center text-align-center" >
+                                    <p class="font-weigth-bold">Поточний</p>
+                                    <p> - </p>
+                                    <p id="current_rate"></p>
+                                    <p id="current_balanceMain"></p>
+                                    <p id="current_balanceSub"></p>
+                                </div> 
+                                <div class="d-grid grid-difference align-items-center text-align-center" >
+                                    <p class="font-weigth-bold">Різниця, %</p>
+                                    <p> - </p>
+                                    <p id="difference_rate"></p>
+                                    <p id="difference_balanceMain"></p>
+                                    <p id="difference_balanceSub"></p>
+                                </div>
+                            </p>
+                            <!-- <p id="balance1">
+                                <div class="balance-header d-grid grid-balance align-items-center text-align-center font-weigth-bold" >
+                                    <p id="balance_crMain">Base</p>
+                                    <p id="balance_crSub" >RSI</p>
+                                </div> 
+                                <div class="d-grid grid-balance align-items-center text-align-center" >
+                                    <p id="balance_Main">test</p>
+                                    <p id="balance_Sub">test</p>
+                                </div>
+                            </p> -->
+                        </div>
+                        <!-- /.inner_container -->
+                    </div>
+                    <!-- /.grid_ballnce -->
+
+                </div>
+                <!-- /.grid_control_ballance -->
+                
+                
+
+                <div class="grid_status">
+                    <div class="inner_header d-flex justify-content-center">
+                        <h2>Монітор роботи алгоритму</h2>
+                    </div>
+                        <div id="analysis" class="analysis_block">
+                                <div class="analysis-header d-grid grid-analysis align-items-center text-align-center font-weigth-bold" >
+                                    <p>База</p>
+                                    <p>Курс</p>
+                                    <p>Різниця</p>
+                                    <p>Б-рішення</p>
+                                </div>
+                                <div class="d-grid grid-analysis align-items-center text-align-center" >
+                                    <p id="analysis_base"></p>
+                                    <p id="current_course"></p>
+                                    <p id="diff_by_courses"></p>
+                                    <p id="analysis_b_command"></p>
+                                </div>
+                        </div>
+                        <div id="analysis" class="analysis_block">
+                                <div class="analysis-header d-grid grid-analysis align-items-center text-align-center font-weigth-bold" >
+                                    <p>RSI</p>
+                                    <p>Тренд</p>
+                                    <p>R-рішення</p>
+                                    <p>Дивергенція</p>
+                                </div>
+                                <div class="d-grid grid-analysis align-items-center text-align-center" >
+                                    <p id="analysis_rsi"></p>
+                                    <p id="trand_rsi"></p>
+                                    <p id="analysis_r_command"></p>
+                                    <p id="diverg_rsi"></p>
+                                </div>
+                        </div>
+                    <!-- /.inner_header -->   
+                    <div class="inner_container">
+                        <p id="current_status"></p>
+                    </div>
+                    <!-- /.inner_container -->
+                </div>
+               <!-- /.grid_status -->     
+               <div class="grid_transactions_lastOperations d-grid grid-container-row">
+                    
+                    <div class="grid_transactions">
+                        <div class="inner_header d-flex justify-content-center">
+                            <h2>Проведені транзакції</h2>
+                        </div>
+                        <!-- /.inner_header -->
+                        <div class="inner_container">
+                            <p id="transactions">
+                            </p>
+                        </div>
+                        <!-- /.inner_container -->
+                    </div>
+                    <!-- /.grid_transactions -->
+
+                    <div class="grid_lastOperations">
+                        <div class="inner_header d-flex justify-content-center">
+                            <h2>Аналіз операцій</h2>
+                        </div>
+                        <!-- /.inner_header -->
+
+                        <div class="inner_container">
+                            <p id="lastOperations">
+                                <div class="p_last_difference-header d-grid grid-difference align-items-center text-align-center" >
+                                    <p><strong></strong></p>
+                                    <p><strong>тип</strong></p>
+                                    <p><strong>курс</strong></p>
+                                    <p><strong>BTC</strong></p>
+                                    <p><strong>USD</strong></p>
+                                </div> 
+                                <div class="d-grid p_last_grid-difference align-items-center text-align-center" >
+                                    <p class="font-weigth-bold">Перед остання</p>
+                                    <p id="p_last_operation_type"></p>
+                                    <p id="p_last_operation_rate"></p>
+                                    <p id="p_last_operation_balanceMain"></p>
+                                    <p id="p_last_operation_balanceSub"></p>
+                                </div> 
+                                <div class="d-grid p_last_grid-difference align-items-center text-align-center" >
+                                    <p class="font-weigth-bold">Осатння </p>
+                                    <p id="last_operation_type_a"></p>
+                                    <p id="last_operation_rate_a"></p>
+                                    <p id="last_operation_balanceMain_a"></p>
+                                    <p id="last_operation_balanceSub_a"></p>
+                                </div> 
+                                <div class="d-grid p_last_grid-difference align-items-center text-align-center" >
+                                    <p class="font-weigth-bold">Різниця, % </p>
+                                    <p> - </p>
+                                    <p id="pl_difference_rate"></p>
+                                    <p id="pl_difference_balanceMain"></p>
+                                    <p id="pl_difference_balanceSub"></p>
+                                </div>
+                            </p>
+                        </div>
+                        <!-- /.inner_container -->
+                    </div>
+                    <!-- /.grid_lastOperations -->
+                </div>
+                <div class="flex_buttons d-flex justify-content-space-evenly align-items-center">
+                    <button id="b1" class="btn flex_btn">Відмінити всі ордери</button>
+                    <button id="b2" class="btn flex_btn">Sell Main </button>
+                    <button id="b3" class="btn flex_btn">Sell Sub</button>
+                    <button id="b4" class="btn flex_btn">Змінити базу на поточний курс</button>
+                    <button id="b5" class="btn flex_btn">Змінити базу на курс останньої операції</button>
+                    <!-- <button id="b6" class="btn flex_btn">Bt6</button>
+                    <button id="b7" class="btn flex_btn">Bt7</button>
+                    <button id="b8" class="btn flex_btn">Bt8</button> -->
+                </div>
+                <!-- /.grid_buttons -->
+            </div>
+            <!-- /.grid_container -->
+        </section>
+        <!-- /.inner -->
+    </main>
+    <!-- /.main -->
+    <div class="modal-help">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="#">
+                    <div data-close-help class="modal-close-help">&times;</div>
+                    <div class="modal-title">Опис налаштувань</div>
+                    <div class="modal-text">
+                        <br>
+                        <h3>Налаштування доступу бота</h3>
+                        <br>
+                        <p>Робота бота відбувається викоритсовуючи технологію обмінів між біржею та програмою по API.</p>
+                        <br>
+                        <p>Перед запуском бота необхідно відкрити у будь-якому текстовому редакторі файл “apiS.js”, та у відповідні поля "apiKey" та  "apiSecret" прописати ваші ключі. У поле "apiKey" - записати відкритий ключ, а у поле "apiSecret" - записати секретний ключ. отримати їх можна залогінившись на сайті “Exmo”, та перейшовши у розділ “Налаштування”. Далі перейти у розділ “API - створення та управління API-ключами…”</p>
+                        <br>
+                        <img src="img/exmo_settings.jpg" alt="Exmo API">
+                        <br>
+                        <br>
+                        <p>В цьому розділі необхідно внизу сторінки натиснути кнопку “Створити API-ключі” та виконати всі інструкції. Увага: секретний ключ буде відображено у повному вигляді лише раз, тому його треба буде зберегти, або записати. Після повторного входу до цього розділу секретний ключ буде відображатись у скороченій формі і повторно використати його буде не можливо. Якщо ви не зафіксували його ніде, то треба буде перегенерувати нові API-ключі. Якщо ви ключ згенеруєте і використаєте у програмі, а потім зайдете сюди і видалите ці ключі, то програма перестане працювати. Будьте уважні.</p>
+                        <br>
+                        <p>Після запису ключів у программу, вони мають мати приблизно такий вигляд:</p>
+                        <br>
+                        <img src="img/keys.jpg" alt="Keys img">
+                        <p>Де замість знаків “*” будуть Ваші ключі.</p>
+                        <br>
+                        <p>Ці дані налаштовуються один раз, і використовуються для обмінів маж програмою та біржею Exmo по API.</p>
+                        <br>
+                        <p>Після цього файл необхідно зберегти і провести налаштування роботи бота.</p>
+                        <br>
+                        <h3>Налаштування роботи бота</h3>
+                        <br>
+                        <p>Всі налаштування роботи бота задаються у окремому файлі “pairS.js”. Даний файл включає як стандартні налаштування кріптопар, які встановлюються самою біржею, так і налаштування алгоритмів. В даний момент бот працює лише по одній парі - першій зазначеній у файлі “pairS.js”.</p>
+                        <br>
+                        <h4>Описання алгоритмів</h4>
+                        <br>
+                        <p><u>1. Базово-граничний аналіз:</u></p>
+                        <br>
+                        <br>
+                        <p>В основі даного аналізу у якості бази використовується певне значення ціни кріптовалюти(“lastBaseCost”) та границі спрацювання алгоритму на закупку(“buyBorder”) чи продаж(“sellBorder”). Границі спрацювання задаються у відсотках відносно базової ціни.</p>
+                        <br>
+                        <p>При першому запуску у якості бази використовується значення ціни  на початок дня. Надалі алгоритм аналізує зміну поточної ціни кріптопари відносно ціни зазначеної у якості базової, та при досягненні встановлених відхилень подає боту команду на закупку/продаж кріптовалюти.</p>
+                        <br>
+                        <p>У даному алгоритмі також є поняття Екстра-границі(“extraSellBorder” / “extraBuyBorder”). Їх значення встановлені, як значення границь * 5. Тобто, якщо для краптопари границя закупки рівна 1,2 то Екстра-границя буде встановлена на рівні 3 ( 1,2 * 5). Ці екстра границі використовуються зміни базової ціни у випадку, якщо по даній кріптовалюті відбувається стрімке падіння/зростання курсу. Значення 5 були підібрані шляхом проб і помилок, можна змінити у коді самого боту.</p>
+                        <br>
+                        <p>Схематично дані границі можна зобразити так(на малюнку зображено значення Екстра-границі рівне 2,5):</p>
+                        <br>
+                        <img src="img/baseAlg.jpg" alt="base img">
+                        <br>
+                        <br>
+                        <p>У межах границь “sellBorder” чи “buyBorder” відбувається простий процес закупівлі / продажу. Та якщо значення зміни ціни досягає границь “extraSellBorder” чи “extraBuyBorder”, то це означає, що у кріптовалюти продовжується екстремальне зростання/падіння ціни, і тоді відбувається перезакупівля “в мінус” і зміна поточної бази (“lastBaseCost”) на ту, по якій була проведена 
+                        <br>
+                        <br>
+                        <p>Алгоритм був розроблений для себе і зазнає подальших змін і модернізацій. Відповідальності за використання алгоритму автор не несе.</p>
+                        <br>
+                        <br>
+                        <p><u>2. RSI14 аналіз:</u></p>
+                        <br>
+                        <br>
+                        <p>В основі даного аналізу закладений алгоритм Relative Strength Index, або індекс відносної сили. Дуже докладний опис і можливості застосування даного алгоритму викладені у статті сайту “TradingView”, посилання на яку я залишу трохи нижче. Кому буде цікаво - можна ознайомитись з даною інформацією.</p>
+                        <br>
+                        <p>В основі даного алгоритму використовуються 15 хвилинні свічки, для яких розраховується індекс RSI з періодом 14. 	Рівні аналізу RSI відповідно 70 та 30. Продаж і закупка відбуваються не в момент досягнення рівня 70 чи 30, а в момент їх зворотного перетину. Це до речі теж зазначено у вище-згаданій статті. Ддя додаткового окнтролю хибних сигналів, у алгоритмі використовується перевірка тренду. Тренд розраховується по значенню фрейму довготривалого аналізу. </p>
+                        <br>
+                        <p>Наприклад зараз у алгорисмі значення RSI14 визначається по короткому фрему (15 хвилин), а тренд визначається по довгому фрейму(60 хвилин). В алгоритмі присутній розрвхунок дивергенції сигналу, але застосування його поки що не визначено, тому просто інформативне.</p>
+                        <br>
+                        <img src="img/rsiAlg.jpg" alt="rsi img">
+                        <br>
+                        <p>Посилання на статтю: <a href="https://ru.tradingview.com/chart/BTCUSD/Eq8tysZA-indikator-rsi-sekrety-torgovli-pravila-primeneniya-polnyj-razbor/"><u>RSI на TradingView</u></a></p>
+                        <br>
+                        <p>Алгоритм був розроблений для себе і зазнає подальших змін і модернізацій. Відповідальності за використання алгоритму автор не несе.</p>
+                        <br>
+                        <br>
+                        <p><u>3. Тест алгоритм, використовувався для відлагодження самого бота</u></p>
+                        <br>
+                        <br>
+                        <p>Суть алгоритму заключається у тому, що аналізуються 100 останніх операцій по поточній парі. З них знаходиться мінімальна ціна закупки та максимальна ціна продажу. І в залежності від виду останнього ордеру, програма намагається відкрити ордер на закупку по мінімальній ціні, або на продаж по максимальній. Різниці комісії операцій враховуються.</p>
+                        <br>
+                        <p>До використання не рекомендується!</p>
+                        <br>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-aboutUs">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="#">
+                    <div data-close-aboutUs class="modal-close-aboutUs">&times;</div>
+                    <div class="modal-title">Про проект</div>
+                    <div class="modal-text">
+                        <br>
+                        <p>Почну з того, що JavaScript я почав вивчати доволі не давно і займаюсь цим для власного розвитку у якості хобі.</p>
+                        <br>
+                        <p>Створення даного бота було викликано власним інтересом - чи зможу щось подібне зробити, і у якості об’єкту для відпрацювання навичок програмування на JavaScript. За реалізацію прошу сильно не засуджувати, оскільки я тільки вчуся, але за конструктивну критику та зворотній зв’язок буду вдячний. Зв'язатися зі мною  можна через електронну пошту: <a href="mailto:eisbergbot@gmail.com"><u>eisbergbot@gmail.com</u></a></p>
+                        <br>
+                        <p>Бот створений власними силами для власних потреб і  не є комерційним проектом. Використання бота на Ваш власний розсуд, відповідальності за використання бота і алгоритмів автор не несе.</p>
+                        <br>
+                        <p>Існують певні плани на подальший розвиток проекту, та доопрацювання вже існуючих рішень. Та оскільки маю основне місце роботи в іншій сфері і вільного часу не дуже багато, то цей процес може бути доволі розтягнутий в часі.</p>
+                        <br>
+                        <h4>Плани на доопрацювання:</h4>
+                        <br>
+                        <p> -додати ще один(можливо не один) алгоритм роботи бота;</p>
+                        <p> -додати можливість зберігання даних у зовнішній Б/Д при перезапуску браузеру, наразі всі розрахунки починаються з початку;</p>
+                        <p> -доопрацювати інтерфейс можливістю налаштування бота з веб-сторінки, не коригуючи js-файли руками;</p>
+                        <p> -зробити можливість роботи з кількома кріптовалютними парами, можливо у паралельному режимі;</p>
+                        <p> -інші доопрацювання...</p>
+                        <br>
+                        <p>Якщо у когось буде бажання і можливість підтримати проект не словом, а ділом, то буду дуже вдячним. Це дасть змогу прискорити доопрацювання проекту.</p>
+                        <br>
+                        <p>Картка монобанку: 5375 4112 0211 1311</p>
+                        <p>Посилання: <a target="_blank" href="https://send.monobank.ua/jar/bzyUvFcjs"><u>підтримати проект</u></a></p>
+                        <p><img class="mono-code" src="img/mono_code.png" alt="img mono"></p>
+                        <br>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-help1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="#">
+                    <div data-close-help1 class="modal-close-help1">&times;</div>
+                    <div class="modal-title">Базово-граничний аналіз</div>
+                    <div class="modal-text">
+                        <br>
+                        <p>Всі налаштування роботи бота задаються у окремому файлі “pairS.js”. Даний файл включає як стандартні налаштування кріптопар, які встановлюються самою біржею, так і налаштування алгоритмів. В даний момент бот працює лише по одній парі - першій зазначеній у файлі “pairS.js”.</p>
+                        <br>
+                        <p><u>Базово-граничний аналіз:</u></p>
+                        <br>
+                        <br>
+                        <p>В основі даного аналізу у якості бази використовується певне значення ціни кріптовалюти(“lastBaseCost”) та границі спрацювання алгоритму на закупку(“buyBorder”) чи продаж(“sellBorder”). Границі спрацювання задаються у відсотках відносно базової ціни.</p>
+                        <br>
+                        <p>При першому запуску у якості бази використовується значення ціни  на початок дня. Надалі алгоритм аналізує зміну поточної ціни кріптопари відносно ціни зазначеної у якості базової, та при досягненні встановлених відхилень подає боту команду на закупку/продаж кріптовалюти.</p>
+                        <br>
+                        <p>У даному алгоритмі також є поняття Екстра-границі(“extraSellBorder” / “extraBuyBorder”). Їх значення встановлені, як значення границь * 2,5. Тобто, якщо для краптопари границя закупки рівна 1,2 то Екстра-границя буде встановлена на рівні 3 ( 1,2 * 2,5). Ці екстра границі використовуються для автоматичної перезакупівлі кріптовалюти, та зміни базової ціни у випадку, якщо по даній кріптовалюті відбувається стрімке падіння/зростання курсу. Значення 2,5 буди підібрані шляхом проб і помилок, можна змінити у коді самого боту.</p>
+                        <br>
+                        <p>Схематично дані границі можна зобразити так:</p>
+                        <br>
+                        <img src="img/baseAlg.jpg" alt="base img">
+                        <br>
+                        <br>
+                        <p>У межах границь “sellBorder” чи “buyBorder” відбувається простий процес закупівлі / продажу. Та якщо значення зміни ціни досягає границь “extraSellBorder” чи “extraBuyBorder”, то це означає, що у кріптовалюти продовжується екстремальне зростання/падіння ціни, і тоді відбувається перезакупівля “в мінус” і зміна поточної бази (“lastBaseCost”) на ту, по якій була проведена 
+                        <br>
+                        <br>
+                        <p>Алгоритм був розроблений для себе і зазнає подальших змін і модернізацій. Відповідальності за використання алгоритму автор не несе.</p>
+                        <br>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-help2">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="#">
+                    <div data-close-help2 class="modal-close-help2">&times;</div>
+                    <div class="modal-title">RSI14 аналіз</div>
+                    <div class="modal-text">
+                        <br>
+                        <p><u>RSI14 аналіз:</u></p>
+                        <br>
+                        <br>
+                        <p>В основі даного аналізу закладений алгоритм Relative Strength Index, або індекс відносної сили. Дуже докладний опис і можливості застосування даного алгоритму викладені у статті сайту “TradingView”, посилання на яку я залишу трохи нижче. Кому буде цікаво - можна ознайомитись з даною інформацією.</p>
+                        <br>
+                        <p>В основі даного алгоритму використовуються 15 хвилинні свічки, для яких розраховується індекс RSI з періодом 14. 	Рівні аналізу RSI відповідно 70 та 30. Продаж і закупка відбуваються не в момент досягнення рівня 70 чи 30, а в момент їх зворотного перетину. Це до речі теж зазначено у вище-згаданій статті.</p>
+                        <br>
+                        <img src="img/rsiAlg.jpg" alt="rsi img">
+                        <br>
+                        <p>Посилання на статтю: <a target="_blank" href="https://ru.tradingview.com/chart/BTCUSD/Eq8tysZA-indikator-rsi-sekrety-torgovli-pravila-primeneniya-polnyj-razbor/"><u>RSI на TradingView</u></a></p>
+                        <br>
+                        <p>Алгоритм був розроблений для себе і зазнає подальших змін і модернізацій. Відповідальності за використання алгоритму автор не несе.</p>
+                        <br>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-help3">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="#">
+                    <div data-close-help3 class="modal-close-help3">&times;</div>
+                    <div class="modal-title">Тест алгоритм</div>
+                    <div class="modal-text">
+                        <br>
+                        <p><u>Тест алгоритм, використовувався для відлагодження самого бота</u></p>
+                        <br>
+                        <br>
+                        <p>Суть алгоритму заключається у тому, що аналізуються 100 останніх операцій по поточній парі. З них знаходиться мінімальна ціна закупки та максимальна ціна продажу. І в залежності від виду останнього ордеру, програма намагається відкрити ордер на закупку по мінімальній ціні, або на продаж по максимальній. Різниці комісії операцій враховуються.</p>
+                        <br>
+                        <p>До використання не рекомендується!</p>
+                        <br>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type ="text/javascript" src="JS/fetchExmo.js"></script>
+</body>
+</html>
