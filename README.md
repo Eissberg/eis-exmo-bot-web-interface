@@ -1,4 +1,4 @@
-# eisBot for Exmo: безкоштовний bot для торгівлі на біржі EXMO з Web-interface
+# eisBot for Exmo: безкоштовний bot для торгівлі на біржі EXMO з Web-interface. Crypto bot on JavaScript 
 
 Представляю Вашій увазі власний міні-проект, а саме - торговий біржевий бот для кріптобіржи Exmo.
 
